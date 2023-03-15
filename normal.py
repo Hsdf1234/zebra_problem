@@ -56,17 +56,17 @@ class Agent:
             # 示例：基于问题信息可以提炼出，有人养斑马，有人喜欢和矿泉水等信息
             (membero, (var(), var(), var(), '斑马', var()), self.units),
             (membero, (var(), var(), '矿泉水', var(), var()), self.units),
-            (membero, ('英国', var(), var(), var(), '红色'), self.units),
-            (membero, ('西班牙', var(), var(), '狗', var()), self.units),
-            (membero, ('日本', '油漆工', var(), var(), var()), self.units),
-            (membero, ('意大利', var(), '茶', var(), var()), self.units),
-            (eq, (('挪威', var(), var(), var(), var()), var(), var(), var(), var()), self.units),
+            (membero, ('英国人', var(), var(), var(), '红色'), self.units),
+            (membero, ('西班牙人', var(), var(), '狗', var()), self.units),
+            (membero, ('日本人', '油漆工', var(), var(), var()), self.units),
+            (membero, ('意大利人', var(), '茶', var(), var()), self.units),
+            (eq, (('挪威人', var(), var(), var(), var()), var(), var(), var(), var()), self.units),
             (left, (var(), var(), var(), var(), '白色'), (var(), var(), var(), var(), '绿色'), self.units),
             (membero, (var(), '摄影师', var(), '蜗牛', var()), self.units),
             (membero, (var(), '外交官', var(), var(), '黄色'), self.units), 
             (eq, (var(), var(), (var(), var(), '牛奶', var(), var()), var(), var()), self.units),
             (membero, (var(), var(), '咖啡', var(), '绿色'), self.units),
-            (next, ('挪威', var(), var(), var(), var()), (var(), var(), var(), var(), '蓝色'), self.units),
+            (next, ('挪威人', var(), var(), var(), var()), (var(), var(), var(), var(), '蓝色'), self.units),
             (membero, (var(), '小提琴家', '橘子汁', var(), var()), self.units),
             (next, (var(), var(), var(), '狐狸', var()), (var(), '医生', var(), var(), var()), self.units),
             (next, (var(), var(), var(), '马', var()), (var(), '外交官', var(), var(), var()), self.units)
@@ -91,15 +91,21 @@ class Agent:
         self.solutions = run(0, self.units, self.rules_zebraproblem)
         return self.solutions
 
+# 计时
+start = time.perf_counter()
+
 agent = Agent()
 solutions = agent.solve()
 
-# 提取解释器的输出
-output = [house for house in solutions[0] if '斑马' in house][0][4]  # solutions[0]是因为结果唯一，只用取第一个推理结果
-print ('\n{}房子里的人养斑马'.format(output))
-output = [house for house in solutions[0] if '矿泉水' in house][0][4]
-print ('{}房子里的人喜欢喝矿泉水'.format(output))
+# # 提取解释器的输出
+# output = [house for house in solutions[0] if '斑马' in house][0][4]  # solutions[0]是因为结果唯一，只用取第一个推理结果
+# print ('\n{}房子里的人养斑马'.format(output))
+# output = [house for house in solutions[0] if '矿泉水' in house][0][4]
+# print ('{}房子里的人喜欢喝矿泉水'.format(output))
 
 # 解释器的输出结果展示
 for i in solutions[0]:
     print(i)
+
+end = time.perf_counter()
+print('程序运行的时间为{}秒'.format(end - start))

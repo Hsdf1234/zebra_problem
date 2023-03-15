@@ -1,4 +1,5 @@
 from ortools.sat.python import cp_model
+import time
 
 
 # pylint: disable=too-many-statements
@@ -89,5 +90,8 @@ def solve_zebra():
     else:
         print('No solutions to the zebra problem, this is unusual!')
 
-
+# 计时
+start = time.perf_counter()
 solve_zebra()
+end = time.perf_counter()
+print('程序运行的时间为{}秒'.format(end - start))
