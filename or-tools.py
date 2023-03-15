@@ -46,30 +46,33 @@ def solve_zebra():
     model.AddAllDifferent(painter, diplomat, doctor, violinist,
                           photographer)
 
-    model.Add(englishman == red)
-    model.Add(spaniard == dog)
-    model.Add(coffee == green)
-    model.Add(italian == tea)
-    model.Add(green == white + 1)
-    model.Add(photographer == snails)
-    model.Add(diplomat == yellow)
-    model.Add(milk == 3)
-    model.Add(norwegian == 1)
+    model.Add(englishman == red)  # 英国人住在红色的房子里
+    model.Add(spaniard == dog)  # 西班牙人养了一条狗
+    model.Add(japanese == painter)  # 日本人是一个油漆工
+    model.Add(italian == tea)  # 意大利人喜欢喝茶
+    model.Add(green == white + 1)  # 绿房子在白房子的右边
+    model.Add(photographer == snails)  # 摄影师养了一只蜗牛
+    model.Add(diplomat == yellow)  # 外交官住在黄房子里
+    model.Add(milk == 3)  # 中间那个房子的人喜欢喝牛奶
+    model.Add(norwegian == 1)  # 挪威人住在左边的第一个房子里
+    model.Add(coffee == green)  # 喜欢喝咖啡的人住在绿房子里
 
-    diff_fox_chesterfields = model.NewIntVar(-4, 4, 'diff_fox_chesterfields')
-    model.Add(diff_fox_chesterfields == fox - doctor)
-    model.AddAbsEquality(1, diff_fox_chesterfields)
-
-    diff_horse_diplomat = model.NewIntVar(-4, 4, 'diff_horse_diplomat')
-    model.Add(diff_horse_diplomat == horse - diplomat)
-    model.AddAbsEquality(1, diff_horse_diplomat)
-
-    model.Add(violinist == fruit_juice)
-    model.Add(japanese == painter)
-
+    # 挪威人住在蓝色的房子旁边
     diff_norwegian_blue = model.NewIntVar(-4, 4, 'diff_norwegian_blue')
     model.Add(diff_norwegian_blue == norwegian - blue)
     model.AddAbsEquality(1, diff_norwegian_blue)
+
+    model.Add(violinist == fruit_juice)  # 小提琴家喜欢喝橘子汁
+
+    # 养狐狸的人所住的房子与医生的房子相邻
+    diff_fox_doctor = model.NewIntVar(-4, 4, 'diff_fox_doctor')
+    model.Add(diff_fox_doctor == fox - doctor)
+    model.AddAbsEquality(1, diff_fox_doctor)
+
+    # 养马的人所住的房子与外交官的房子相邻
+    diff_horse_diplomat = model.NewIntVar(-4, 4, 'diff_horse_diplomat')
+    model.Add(diff_horse_diplomat == horse - diplomat)
+    model.AddAbsEquality(1, diff_horse_diplomat)
 
     # Solve and print out the solution.
     solver = cp_model.CpSolver()
